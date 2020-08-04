@@ -1,12 +1,29 @@
+var currentSequence = [];
+
+$(document).one("keypress", createNextSequence);
+
+function createNextSequence() {
+  var colors = ["green", "red", "yellow", "blue"];
+  var nextColor = Math.floor(4 * Math.random());
+  currentSequence.push(colors[nextColor]);
+  console.log(currentSequence[0]);
+  playBtnSoundAndAnimate(colors[nextColor]);
+}
+
 $(".btn").click(function () {
-  console.log(this.id);
-  $(this).addClass("pressed");
+  playBtnSoundAndAnimate(this.id);
+});
+
+function playBtnSoundAndAnimate(activatedBtn) {
+  console.log(activatedBtn + " is the activated btn");
+  $("#" + activatedBtn).addClass("pressed");
   setTimeout(function () {
     $(".btn").removeClass("pressed");
   }, 50);
 
-  switch (this.id) {
+  switch (activatedBtn) {
     case "green":
+      console.log("Goes to green case");
       const greenAudio = new Audio("sounds/green.mp3");
       greenAudio.play();
       break;
@@ -26,4 +43,4 @@ $(".btn").click(function () {
     default:
       break;
   }
-});
+}
